@@ -202,7 +202,7 @@ Acetobacter_pasteurianus >gi|529218760|ref|NC_021977.1| Acetobacter pasteurianus
 ```
 
 **Important:** The file is a strange format. The first 'column' should be the
-name you want to represent the genome and this is follow **by a space** and then
+name you want to represent the genome and this is followed **by a space** and then
 the header from the accompanying reference. **Do not include spaces in the name
 in the first column**.
 
