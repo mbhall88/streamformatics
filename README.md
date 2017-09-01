@@ -1,5 +1,5 @@
 
-[![IMAGE ALT TEXT HERE](https://www.youtube.com/embed/KkW8h-w8MVM?rel=0.jpg)](https://www.youtube.com/embed/KkW8h-w8MVM?rel=0)
+[See here for a demonstration](https://www.youtube.com/embed/KkW8h-w8MVM?rel=0)
 
 
 ## Installation
