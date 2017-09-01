@@ -1,7 +1,7 @@
 
 <!-- <iframe width="560" height="315" src="https://www.youtube.com/embed/KkW8h-w8MVM?rel=0" frameborder="0" allowfullscreen></iframe> -->
 
-<a href="https://www.youtube.com/embed/KkW8h-w8MVM?rel=0"><img src="https://www.youtube.com/embed/KkW8h-w8MVM?rel=0/0.jpg"
+<a href="https://www.youtube.com/embed/KkW8h-w8MVM?rel=0"><img src="https://www.youtube.com/embed/KkW8h-w8MVM?rel=0.jpg"
 alt="IMAGE ALT TEXT HERE" width="560" height="315" border="10" /></a>
 
 ## Installation
