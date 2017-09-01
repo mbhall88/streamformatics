@@ -16,7 +16,7 @@ number of elements of this pipeline so it's best to add in the details while
 they're fresh.
 
 ```sh
-git clone XXXX
+git clone https://github.com/mbhall88/streamformatics.git
 cd ~/streamformatics
 ```
 
@@ -195,7 +195,13 @@ actual database of sequences and `speciesIndex` for the mapping file. You can
 name them whatever you want though.
 
 Now that you have these two files setup, I would suggest placing them in the
-folder called `data/database` within this repository. After placing them in there,
+folder called `data/database` within this repository.
+
+```sh
+mkdir -p ~/streamformatics/data/database
+```
+
+After placing them in there,
 we need to point to them in `config.json`. The entries for them should look like
 this
 
@@ -224,3 +230,5 @@ If for some reason a web browser window does open, just navigate to the address
 that is printed to the terminal after running the above commands.
 
 You should now be presented with a screen that looks like this
+
+![alt text](https://github.com/mbhall88/streamformatics/blob/master/public/images/home_page.png)
