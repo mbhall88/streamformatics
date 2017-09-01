@@ -256,7 +256,7 @@ that is printed to the terminal after running the above commands.
 
 You should now be presented with a screen that looks like this
 
-![alt text](https://github.com/mbhall88/streamformatics/blob/master/public/images/home_page.png)
+![streamformatics entry form](https://github.com/mbhall88/streamformatics/blob/master/public/images/home_page.png)
 
 The steps from here should be self-explanatory. Provide the directory that your
 nanopore reads are being deposited into (the application will watch subdirectories
@@ -273,6 +273,8 @@ I would also recommend writing the log files (set by default). These files inclu
 the stderr from all the pieces in the pipeline (very handy if debugging is required)
 and most importantly, this will give you a copy of the output from the species-typing
 that is also being represented in the visualisation.
+
+![streamformatics visualisation](https://github.com/mbhall88/streamformatics/blob/master/public/images/viz.png)
 
 After selecting **Start Analysis** the form will dissappear and (eventually) the
 donut chart and a table representing the species present, based on the data so far,
