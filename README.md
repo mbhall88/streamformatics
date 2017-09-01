@@ -1,6 +1,18 @@
 
-[See here for a demonstration](https://www.youtube.com/embed/KkW8h-w8MVM?rel=0)
 
+Streamformatics is an application which runs a local server to analyse nanopore
+sequencing data - specifically designed to work in 'real-time'. The application
+provides a simple web browser interface (after some initial setup steps on the
+command line) to extract sequence data from nanopore-basecalled files, align them
+to a database of interest, and provide information about the species present in
+the sample.
+
+[See here for a demonstration](https://www.youtube.com/embed/KkW8h-w8MVM?rel=0).
+
+After the initial setup, the application should be fairly easy to run for
+future work.
+
+---
 
 ## Installation
 
