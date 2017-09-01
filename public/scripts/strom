@@ -1,0 +1,158 @@
+#!/usr/bin/env python
+
+"""Many thanks to Michael Cho for this blog that helped with setting up the
+skeleton code for this
+https://www.michaelcho.me/article/using-pythons-watchdog-to-monitor-changes-to-a-directory
+"""
+
+import h5py
+import sys
+import os
+import time
+import argparse
+from watchdog.observers import Observer
+from watchdog.events import FileSystemEventHandler
+
+
+class Watcher:
+
+    def __init__(self, dir_to_watch, file_ext):
+        self.observer = Observer()
+        self.dir_to_watch = dir_to_watch
+        self.file_ext = file_ext
+
+    def run(self):
+        event_handler = Handler(self.dir_to_watch, self.file_ext)
+        self.observer.schedule(event_handler, self.dir_to_watch, recursive=True)
+        self.observer.start()
+        try:
+            while True:
+                time.sleep(5)
+        except:
+            self.observer.stop()
+            print 'Error'
+
+        self.observer.join()
+
+
+class Handler(FileSystemEventHandler):
+
+    def __init__(self, watch_dir, file_ext):
+        self.parked = set()
+        self.file_ext = file_ext
+        self.watch_dir = watch_dir
+        self.fastx_exts = ('.fasta', '.fa', '.fq', '.fastq')
+        self.process_existing_files()
+
+    def process_existing_files(self):
+        sys.stderr.write('Processing existing files...\n')
+        fastx_exts = ('.fasta', '.fa', '.fq', '.fastq')
+        for root, dirs, files in os.walk(self.watch_dir):
+            for filename in files:
+                filepath = os.path.join(root, filename)
+                sys.stderr.write(
+                    'Processing existing file: {}\n'.format(filepath))
+                sys.stderr.flush()
+                self.process_file(filepath)
+        sys.stderr.write('Finished processing existing files.\n')
+        sys.stderr.flush()
+
+
+    def process_file(self, filepath):
+        if filepath.endswith(self.file_ext) and self.file_ext == '.fast5':
+            try:
+                fastq = extract_fastq(filepath)
+                if fastq:
+                    sys.stderr.write(
+                        'Fastq extracted for {}\n'.format(filepath)
+                    )
+                    sys.stderr.flush()
+                    sys.stdout.write(fastq)
+                    sys.stdout.flush()
+                else:
+                    self.parked.add(filepath)
+
+            except IOError:  # skip corrupted files
+                pass
+
+        elif (filepath.endswith(self.fastx_exts) and
+              self.file_ext in self.fastx_exts):
+            with open(filepath, 'r') as fastx:
+                for line in fastx:
+                    sys.stdout.write(line)
+                    sys.stdout.flush()
+            sys.stderr.write('Fastq extracted for {}\n'.format(filepath))
+            sys.stderr.flush()
+
+    def on_created(self, event):
+        filepath = event.src_path
+        if event.is_directory:
+            return None
+
+        self.process_file(filepath)
+
+    def on_modified(self, event):
+        filepath = event.src_path
+
+        if filepath in self.parked:
+            fastq = extract_fastq(filepath)
+            if fastq:
+                sys.stderr.write('Fastq extracted for {}\n'.format(filepath))
+                sys.stderr.flush()
+                sys.stdout.write(fastq)
+                sys.stdout.flush()
+                self.parked.remove(filepath)
+
+
+def extract_fastq(filepath):
+    err_msg = 'Unable to open object (Component not found)'
+
+    with h5py.File(filepath, 'r') as fast5:
+        dataset = '/Analyses/Basecall_1D_000/BaseCalled_template/Fastq'
+        dataset2d = '/Analyses/Basecall_2D_000/BaseCalled_2D/Fastq'
+        try:
+            fastq = fast5[dataset].value
+            return fastq
+        except Exception as e:
+            if e.message == err_msg:
+                try:
+                    fastq = fast5[dataset2d].value
+                    return fastq
+                except Exception as e:
+                    if e.message == err_msg:
+                        return None
+                    else:
+                        raise e
+            else:
+                raise e
+
+
+if __name__ == '__main__':
+
+    parser = argparse.ArgumentParser(
+        description='Will recursively watch a given directory for the creation \
+        of fast5 or fastq/a files and write the fastq contents on those files \
+        to stdout. This can be used for real-time streaming of data into \
+        alignment programs or other tools.',
+    )
+
+    parser.add_argument(
+        '-i', '--input_dir',
+        help='Directory to watch for files in. Will watch all subdirectories.',
+        required=True
+    )
+
+    parser.add_argument(
+        '-t', '--file_type',
+        help='The file type to watch for. Can be fast5 or fastx (fastq or \
+        fasta). Default is .fast5',
+        choices=['.fast5', '.fastx'],
+        default='.fast5'
+    )
+
+    args = parser.parse_args()
+
+    file_ext = '.fastq' if args.file_type == '.fastx' else args.file_type
+
+    w = Watcher(args.input_dir, file_ext)
+    w.run()

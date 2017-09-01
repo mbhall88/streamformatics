@@ -1,0 +1,23 @@
+{
+  "name": "uwa_pipeline",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node app.js"
+  },
+  "author": "Michael Hall",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.17.2",
+    "chokidar": "^1.7.0",
+    "ejs": "^2.5.7",
+    "express": "^4.15.4",
+    "opn": "^5.1.0",
+    "socket.io": "^2.0.3"
+  },
+  "devDependencies": {
+    "nodemon": "^1.11.0"
+  }
+}

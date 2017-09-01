@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Streamformatics</title>
+    <script src="/javascripts/d3.min.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+    <link rel="stylesheet" href="/stylesheets/semantic.min.css">
+    <link rel="stylesheet" href="/stylesheets/index.css">
+
+</head>
+<body>
+
+<div class="ui one item menu">
+    <div class="header item" id="header">Streamformatics</div>
+</div>
+
+<div class="ui grid container" id="formContainer">
+    <div class="ui two wide column"></div>
+    <div class="ui twelve wide column">
+        <form class="ui form" id="opts" autocomplete="off">
+            <div class="ui segment"><div class="field">
+                <label>Input directory:</label>
+                <div class="ui left labeled input">
+                    <label for="input" class="ui label" id="hover">
+                        $
+                        <div id="tooltip">
+                            The directory where your sequence files will be deposited. The program will look through all subdirectories.
+                        </div>
+                    </label>
+                    <input type="text" name="input" id="input"
+                           placeholder="/path/to/input/dir" required>
+                </div>
+            </div></div>
+
+            <div class="ui segment"><div class="grouped fields">
+                <label for="fileType">Input file format:</label>
+                <div class="field">
+                    <div class="ui radio checkbox">
+                        <input type="radio" name="fileType" id="fastx" value="fastx" checked>
+                        <label for="fastx">FASTQ/FASTA</label>
+                    </div>
+                </div>
+
+                <div class="field">
+                    <div class="ui radio checkbox">
+                        <input type="radio" name="fileType" id="fast5" value="fast5">
+                        <label for="fast5">FAST5</label>
+                    </div>
+                </div>
+            </div></div>
+
+           <div class="ui segment"> <div class="inline field">
+                <div class="ui toggle checkbox">
+                    <input type="checkbox" tabindex="0" checked
+                           id="logCheck" onchange="logToggle()" name="logCheck">
+                    <label class="ui label">Write log files?</label>
+                </div>
+            </div>
+
+            <div class="field">
+                <label for="logLocation">Directory to write log files to:</label>
+                <div class="ui left labeled input">
+                    <label for="logLocation" class="ui label" id="hover">
+                        $
+                        <div id="tooltip">
+                            The log files include the stderr for all programs running in the pipeline and the final output from species-typing. For debugging purposes, it is recommended that you select this option.
+                        </div>
+                    </label>
+                    <input type="text" id="logLocation" name="logLocation"
+                           placeholder="/path/to/write/logs" required>
+                </div>
+
+            </div></div>
+
+            <button class="ui button" type="submit" id="formSubmit">Start Analysis!</button>
+        </form>
+    </div>
+</div>
+
+<div class="ui grid container results">
+    <div id="chartContainer"></div>
+</div>
+
+
+<div class="ui grid container results">
+    <div class="row" id="tableHeader">
+        <span id="timestamp"><%= new Date(); %></span> </br>
+        <span id="reads">0</span> reads have been analysed.
+    </div>
+    <div class="row">
+        <table class="ui celled padded table" id="dataTable">
+            <thead>
+                <tr>
+                    <th class="single line">Species</th>
+                    <th>Probability &plusmn Error</th>
+                    <th>Number of reads aligned</th>
+                </tr>
+            </thead>
+            <tbody>
+
+            </tbody>
+            <tfoot>
+                <tr>
+                    <th></th>
+                    <th><strong>Total</strong></th>
+                    <th id="tAligned">0</th>
+                </tr>
+            </tfoot>
+         </table>
+    </div>
+</div>
+
+
+<script src="/javascripts/index.js"></script>
+   
+    </body>
+</html>
+

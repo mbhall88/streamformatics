@@ -1,0 +1,14 @@
+{
+  "minimap2": {
+    "executable": "minimap2",
+    "memory": "4g",
+    "threads": "3"
+  },
+  "speciesTyper": {
+    "executable": "~/.usr/local/bin/jsa.np.rtSpeciesTyping",
+    "quality": "0"
+  },
+  "watcher": "~/Dropbox/Programs/uwa_pipeline/data/strom",
+  "database": "~/Downloads/uwa_pipeline_testing/Viruses2/genomeDB.fasta",
+  "speciesIndex": "~/Downloads/uwa_pipeline_testing/Viruses2/speciesIndex"
+}

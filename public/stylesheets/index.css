@@ -1,0 +1,126 @@
+/*Donut chart styling*/
+body {
+    margin: 0;
+    padding: 0;
+    font-family: "Source Code Pro", monospace;
+    /*color: #333333;*/
+}
+
+/* Add shadow effect to chart. If you don't like it, get rid of it. */
+svg {
+    -webkit-filter: drop-shadow( 0px 3px 3px rgba(0,0,0,.3) );
+    filter: drop-shadow( 0px 3px 3px rgba(0,0,0,.25) );
+}
+
+/*Styling for the lines connecting the labels to the slices*/
+polyline{
+    opacity: .3;
+    stroke: black;
+    stroke-width: 2px;
+    fill: none;
+    shape-rendering: geometricPrecision;
+}
+
+/* styling for the donut slices*/
+path {
+    shape-rendering: geometricPrecision;
+}
+
+/*add spaces around span elements*/
+span {
+    margin: 0 10px;
+}
+
+/*make reads total bold*/
+#reads {
+    font-weight: bold;
+}
+
+/*The streamformatics text in the header*/
+.menu .item {
+    font-size: 1.8em;
+}
+
+/* Make the percentage on the text labels bold*/
+.labelName tspan {
+    font-style: normal;
+    font-weight: 700;
+}
+
+/* In biology we generally italicise species names. */
+.labelName {
+    font-size: 0.8em;
+    font-style: italic;
+}
+
+
+#chartContainer {
+    position: static;
+    left: 0px;
+    right: 0px;
+    top: 200px;
+    bottom: 0px;
+}
+
+#header {
+    cursor: default;
+}
+
+#header:hover {
+    color: initial;
+}
+
+/*Style textarea like the dracula theme*/
+#opts input[type=text],
+#opts .input .label {
+    font-family: "Source Code Pro", monospace;
+    background-color: #282a36;
+    color: #f8f8f2;
+}
+
+/*make label for checkbox the same colour as the background*/
+.inline .label {
+    background-color: white;
+}
+
+/*Form submission button colour*/
+#formSubmit {
+    background-color: #50fa7b;
+    color: #44475a;
+    border: 1px solid #44475a;
+}
+
+/*make the data points in the central tooltip bold*/
+#dataPoints {
+    font-weight: bold;
+}
+
+/*hide the chart and table on start up*/
+.results {
+    opacity: 0;
+}
+
+/*===========================================================*/
+/*styling the popup tooltips*/
+#hover {
+    /*position:relative;*/
+    top:50px;
+    left:50px;
+}
+
+#tooltip { /* hide and position tooltip */
+    width: 200px;
+    top: -30px;
+    left: -220px;
+    background-color: white;
+    color: #6272a4;
+    border-radius:5px;
+    visibility:hidden;
+    position:absolute;
+}
+
+#hover:hover #tooltip { /* display tooltip on hover */
+    visibility:visible;
+
+}
+/*===========================================================*/
