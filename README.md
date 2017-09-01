@@ -231,4 +231,4 @@ that is printed to the terminal after running the above commands.
 
 You should now be presented with a screen that looks like this
 
-![alt text](https://github.com/mbhall88/streamformatics/blob/master/public/images/home_page.png)
+![alt text](https://github.com/mbhall88/streamformatics/blob/master/public/images/home_page1.png)
