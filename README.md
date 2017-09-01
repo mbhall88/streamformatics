@@ -135,13 +135,16 @@ folder called `node_modules`.
 
 The program within this application that watches for new sequence files and
 pipes them into the aligner is a Python program/script. This program, called
-`strom` is located in the `public/scripts` directory of the repository. `strom`
+`strom`, is located in the `public/scripts` directory of the repository. `strom`
 relies on two Python packages: [`h5py`](http://www.h5py.org/) and
 [`watchdog`](https://pypi.python.org/pypi/watchdog). From any directory, run:
 
 ```sh
 pip install watchdog h5py
 ```
+
+**Note:** If you have installed this repository somewhere other than `~/` then
+make sure you change the location for `"watcher"` in `config.json` accordingly.
 
 ---
 
