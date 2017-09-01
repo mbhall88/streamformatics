@@ -1,3 +1,6 @@
+
+<a width="560" height="315" src="https://www.youtube.com/embed/KkW8h-w8MVM?rel=0" frameborder="0" allowfullscreen></a>
+
 ## Installation
 
 I am going to work on the assumption that all of the following steps are
@@ -210,6 +213,12 @@ this
 "speciesIndex": "~/streamformatics/data/database/speciesIndex"
 ```
 
+Additionally, if your database is larger than 4GB you will need to change the
+`"memory"` parameter in `config.json` to something a little larger than your
+database (for reasons outlined in [this issue](https://github.com/lh3/minimap2/issues/15)).
+If your computer does not have the RAM required for this, get in touch
+with me and I will go through the steps required to get around this.
+
 **Make sure you save the changes made to `config.json`.**
 
 ---
@@ -232,3 +241,26 @@ that is printed to the terminal after running the above commands.
 You should now be presented with a screen that looks like this
 
 ![alt text](https://github.com/mbhall88/streamformatics/blob/master/public/images/home_page.png)
+
+The steps from here should be self-explanatory. Provide the directory that your
+nanopore reads are being deposited into (the application will watch subdirectories
+so feel free to enter a main directory for your experiment).
+
+The reason for needing to specify FASTQ or FAST5 is that if you don't alter the
+startup scripts for minKNOW, the local basecalling will only create a FASTQ file
+every 4000 reads. Therefore if you are wanting to know the details of what species
+you have in 'real-time' you can either alter those scripts (which can be annoying)
+or select the FAST5 option and the FASTQ file within each FAST5 will be extracted
+and fed into `minimap2` as soon as it is produced.
+
+I would also recommend writing the log files (set by default). These files include
+the stderr from all the pieces in the pipeline (very handy if debugging is required)
+and most importantly, this will give you a copy of the output from the species-typing
+that is also being represented in the visualisation.
+
+After selecting **Start Analysis** the form will dissappear and (eventually) the
+donut chart and a table representing the species present, based on the data so far,
+will appear.
+
+When you're done with your experiment, go to the terminal tab that is running the
+server and press **ctrl-c**.

@@ -8,7 +8,7 @@
     "executable": "~/.usr/local/bin/jsa.np.rtSpeciesTyping",
     "quality": "0"
   },
-  "watcher": "~/Dropbox/Programs/uwa_pipeline/data/strom",
-  "database": "~/Downloads/uwa_pipeline_testing/Viruses2/genomeDB.fasta",
-  "speciesIndex": "~/Downloads/uwa_pipeline_testing/Viruses2/speciesIndex"
+  "watcher": "~/Dropbox/Programs/uwa_pipeline/public/scripts/strom",
+  "database": "~/Dropbox/Programs/uwa_pipeline/data/database/genomeDB.fasta",
+  "speciesIndex": "~/Dropbox/Programs/uwa_pipeline/data/database/speciesIndex"
 }
