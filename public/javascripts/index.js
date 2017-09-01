@@ -1,8 +1,7 @@
 /**
  * Created by michaelhall on 5/3/17.
  */
-// TODO: add a timer for how long the analysis has been running
-// TODO: add links to drugs and gene in resistance profiling tree
+
 //============================================================
 // Code for opening the websocket and sending/receiving information through it
 // Mostly button listeners and text boxes used to gather this information
@@ -22,23 +21,27 @@ function logToggle() {
 	logLocationBox.value = '';
 }
 
+// when the form is submitted...
 optsForm.addEventListener('submit', function(event) {
 	event.preventDefault();
 
+	// fade the form out
 	fade(document.querySelector('#formContainer'));
 	document.querySelectorAll('.results').forEach(function(element){
-		unfade(element);
+		unfade(element); // bring the results elements into view
 	});
 
 	inputDir = inputBox.value;
 	fileType = document.querySelector('input[name=fileType]:checked').value;
 
+	// options selected by user
 	var opts = {
 		input: inputDir,
 		fileType: fileType,
 		logLocation: logLocationBox.value
 	};
 
+	// send options to node
 	socket.emit('opts', opts);
 });
 
@@ -50,10 +53,8 @@ socket.on('error', function(error) {
 	console.log(error);
 });
 
-console.log("Socket connected on client side");
-
+// when data is received from the species typer - via node
 socket.on('stdout', function(data) {
-	// console.log(data);
 	var probTotal = Number();
 	// add in an "other" species if the probabilities dont add to 1.0
 	data.data.forEach(function(d) { probTotal += +d.prob; });
@@ -64,6 +65,7 @@ socket.on('stdout', function(data) {
 			err: "N/A"
 		});
 	}
+
 	// update the donut chart with the new data
 	donut.data(data.data);
 
@@ -88,7 +90,7 @@ var donut = donutChart()
 d3.select('#chartContainer')
     .call(donut);
 
-
+// function to fade out an element
 function fade(element) {
 	var op = 1;  // initial opacity
 	var timer = setInterval(function () {
@@ -102,6 +104,7 @@ function fade(element) {
 	}, 50);
 }
 
+// function to fade in an element
 function unfade(element) {
 	var op = 0.1;  // initial opacity
 	element.style.display = 'block';
@@ -115,8 +118,10 @@ function unfade(element) {
 	}, 10);
 }
 
+// function to format decimals as percentages
 var percentFormat = d3.format(',.2%');
 
+// function to update the data in the table
 function updateDataTable(latest) {
 	var timestamp = latest.timestamp,
 	    data = latest.data;
@@ -125,6 +130,7 @@ function updateDataTable(latest) {
 	    total,
 	    reads;
 
+	// for every record in the data, create a row for the table
 	for (var i = 0; i < data.length; i++) {
 		var err = (!isNaN(parseFloat(data[i].err))) ? percentFormat(data[i].err) : 'N/A',
 		    prob = (!isNaN(parseFloat(data[i].prob))) ? percentFormat(data[i].prob) : 'N/A',
@@ -147,6 +153,7 @@ function updateDataTable(latest) {
 		if (!reads && data[i].reads !== undefined) reads = data[i].reads;
 	}
 
+	// remove the old rows and add the new ones
 	var tBody = document.querySelector('#dataTable tbody');
 	while (tBody.firstChild) {
 		tBody.removeChild(tBody.firstChild);
@@ -155,6 +162,7 @@ function updateDataTable(latest) {
 		tBody.appendChild(row);
 	});
 
+	// update the timestamp and read count above the table
 	document.querySelector('#timestamp').innerHTML = timestamp;
 	document.querySelector('#reads').innerHTML = reads;
 	document.querySelector('#tAligned').innerHTML = total;

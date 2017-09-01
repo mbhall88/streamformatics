@@ -52,7 +52,6 @@ var index = require('./routes/index');
 app.use('/', index);
 
 
-
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
     var err = new Error('Not Found');
@@ -133,5 +132,5 @@ function onListening() {
     // open web browser and navigate to address being served when starting the server
     var localURL = 'http://' + addr.address + ':' + addr.port;
     console.log('Server is live at: ' + localURL);
-    // opn('http://' + addr.address + ':' + addr.port);
+    opn(localURL);
 }

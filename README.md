@@ -276,9 +276,10 @@ that is also being represented in the visualisation.
 
 ![streamformatics visualisation](https://github.com/mbhall88/streamformatics/blob/master/public/images/viz.png)
 
-After selecting **Start Analysis** the form will dissappear and (eventually) the
+After selecting **Start Analysis** the form will disappear and (eventually) the
 donut chart and a table representing the species present, based on the data so far,
 will appear.
 
 When you're done with your experiment, go to the terminal tab that is running the
-server and press **ctrl-c**.
+server and press **ctrl-c**. If you want to restart, do this followed by
+`npm start`.

@@ -3,8 +3,7 @@
  */
 var io         = require('../app.js'),
     express    = require('express'),
-    router     = express.Router(),
-    chokidar   = require('chokidar');
+    router     = express.Router();
 
 const spawn      = require('child_process').spawn,
       path       = require('path'),
@@ -20,7 +19,6 @@ router.get('/', function(req, res) {
 
 // connecting to the websocket opened when the client clicks the get started button
 io.of('/').on('connection', function(socket){
-    console.log("Socket connected on server side");
 
     socket.on('error', function(error) {
         if (error) console.log(error);
@@ -127,13 +125,13 @@ io.of('/').on('connection', function(socket){
 		}
     });
 
-    // when user presses stop button, receive kill message from client and close socket
     socket.on('kill', function(){
         socket.disconnect();
     });
 
 });
 
+// returns the command line process for strom
 function runWatcher(watchDir, fileType) {
 	console.log('File watcher called at ' + new Date());
 
@@ -147,6 +145,8 @@ function runWatcher(watchDir, fileType) {
 	return spawn(resolveHome(config.watcher), watcherArgs, watchOpts);
 }
 
+
+// returns the command line process for minimap2
 function runMinimap(inputPath) {
     console.log('minimap2 called at ' + new Date());
 
@@ -166,6 +166,7 @@ function runMinimap(inputPath) {
     return spawn(resolveHome(config.minimap2.executable), minimapArgs, minimapOptions);
 }
 
+// returns the command line process for species typing
 function runSpeciesTyping(inputPath) {
     console.log('Species typing called at ' + new Date());
 
@@ -183,30 +184,13 @@ function runSpeciesTyping(inputPath) {
     return spawn(resolveHome(config.speciesTyper.executable), speciesArgs, speciesOptions);
 }
 
+// function to resolve ~/ as home directory
 function resolveHome(filepath) {
 	if (filepath[0] === '~') {
 		return path.join(process.env.HOME, filepath.slice(1));
 	}
 	return filepath;
 }
-
-// start file watcher and pipe any new fasta files into minimap2
-// var watchOpts = {
-// 	ignored: /(^|[\/\\])\../,
-//    awaitWriteFinish: {
-// 		stabilityThreshold:
-//    }
-// };
-//
-// chokidar.watch(inputPath, watchOpts)
-//    .on('add', function(filePath) {
-//    	if (['.fasta', '.fa', '.fastq', '.fq'].indexOf(path.extname(filePath)) > -1) {
-// 	    const fasta = fs.createReadStream(filePath);
-// 	    fasta.on('data', function(data) {
-// 	    	minimap.stdin.write(data) // feed fasta file into minimap2
-// 	    })
-//     }
-//    });
 
 
 module.exports = router;
