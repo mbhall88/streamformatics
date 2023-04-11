@@ -1,9 +1,3 @@
-**Disclaimer: I am no longer actively maintaining this repository. My current work does
-not invlove any kind of web framework development and as such, I have lost touch 
-with this fast-paced field. I will not archive the repository so as to allow 
-people to post issues and discuss solutions. However, I will be unable to provide 
-much assistance. Apologies for being unable to maintain this tool.**
-
 Streamformatics is an application which runs a local server to analyse nanopore
 sequencing data - specifically designed to work in 'real-time'. The application
 provides a simple web browser interface (after some initial setup steps on the
